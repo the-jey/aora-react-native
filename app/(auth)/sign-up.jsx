@@ -8,8 +8,9 @@ import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 
-const SignIn = () => {
+const SignUp = () => {
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
   });
@@ -28,8 +29,14 @@ const SignIn = () => {
             className="w-[115px] h-[35px]"
           />
           <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
-            Log in to Aora
+            Sign up to Aora
           </Text>
+          <FormField
+            title="Username"
+            value={form.username}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
+            otherStyles="mt-10"
+          />
           <FormField
             title="Email"
             value={form.email}
@@ -52,13 +59,13 @@ const SignIn = () => {
           />
           <View className="justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?
+              have an account already?
             </Text>
             <Link
-              href="/sign-up"
+              href="/sign-in"
               className="text-lg font-psemibold text-secondary-100"
             >
-              Sign Up
+              Sign In
             </Link>
           </View>
         </View>
@@ -67,4 +74,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
