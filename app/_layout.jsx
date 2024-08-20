@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 
+import GlobalProvider from "../context/GlobalProvider";
+
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
@@ -25,9 +27,11 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null;
 
   return (
-    <Stack screenOptions={{ navigationBarHidden: true, headerShown: false }}>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <GlobalProvider>
+      <Stack screenOptions={{ navigationBarHidden: true, headerShown: false }}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+    </GlobalProvider>
   );
 };
 
