@@ -3,13 +3,16 @@ import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, router } from "expo-router";
 
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { getCurrentUser, signIn } from "../../lib/appwrite";
 import { images } from "../../constants";
 
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { signIn } from "../../lib/appwrite";
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -25,9 +28,12 @@ const SignIn = () => {
 
     setIsSubmitting(true);
     try {
-      const result = await signIn(form.email, form.password);
+      await signIn(form.email, form.password);
 
-      // Set it to global state
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLoggedIn(true);
+
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
@@ -38,7 +44,7 @@ const SignIn = () => {
 
   return (
     <SafeAreaView className="bg-primary h-full">
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View className="w-full justify-center h-full min-h-[85vh] px-4 my-6">
           <Image
             source={images.logo}
