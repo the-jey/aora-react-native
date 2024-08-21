@@ -1,7 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { icons } from "../constants";
 import { ResizeMode, Video } from "expo-av";
+
+import { icons } from "../constants";
 
 const VideoCard = ({
   video: {
