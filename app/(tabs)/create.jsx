@@ -9,7 +9,8 @@ import {
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ResizeMode, Video } from "expo-av";
-import * as DocumentPicker from "expo-document-picker";
+// import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 
 import { createVideo } from "../../lib/appwrite";
@@ -31,12 +32,20 @@ const Create = () => {
   });
 
   const openPicker = async (selectType) => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type:
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes:
         selectType === "image"
-          ? ["image/png", "image/jpg", "image/jpeg"]
-          : ["video/mp4", "video/gif"],
+          ? ImagePicker.MediaTypeOptions.Images
+          : ImagePicker.MediaTypeOptions.Videos,
+      aspect: [4, 3],
+      quality: 1,
     });
+    // const result = await DocumentPicker.getDocumentAsync({
+    //   type:
+    //     selectType === "image"
+    //       ? ["image/png", "image/jpg", "image/jpeg"]
+    //       : ["video/mp4", "video/gif"],
+    // });
 
     if (!result.canceled) {
       if (selectType === "image") {
